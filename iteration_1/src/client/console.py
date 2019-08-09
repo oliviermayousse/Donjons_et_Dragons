@@ -47,3 +47,5 @@ class ConsoleUI(object):
         print("")
         print("================== Python Warriors ==================")
         return input("(1) Start new game  |  (2) Exit game ")
+
+
