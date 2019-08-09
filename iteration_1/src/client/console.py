@@ -15,6 +15,7 @@ class ConsoleUI(object):
                 print("")
                 print("Good bye :) ")
                 print("")
+                print("ok")
                 break
 
     def start_game(self, warriors):
