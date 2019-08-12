@@ -38,13 +38,3 @@ class Hero(object):
         return self.attack_level
 
 
-# class Warrior(Hero):
-#     name = "Warrior"
-#     life = 5
-#     attack_level = random.randrange(5, 10)
-#
-#
-# class Wizard(Hero):
-#     name = "Wizard"
-#     life = random.randrange(3, 6)
-#     attack_level = random.randrange(8, 15)

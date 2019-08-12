@@ -12,6 +12,8 @@ class GameState(object):
         self.laste_dice = None
         self.current_case = 0
         self.game_status = GAME_STATUS[0]
+        self.plateau_de_jeu = []
+        self.log = []
 
     def get_player_name(self):
         """
@@ -54,15 +56,8 @@ class GameState(object):
         Returns:
             str: the last log of the game. This log is displayed by the client after each game turn
         """
-        tableau = []
-        nbr_case = self.map.number_of_case
-        for i in range(1, nbr_case):
-            if i == self.current_case:
-                tableau.append(self.hero.image)
-            else:
-                tableau.append('.')
 
-        return "\n".join([str(self.current_case), self.hero.image, self.hero.name, ' - '.join(tableau[self.current_case-1:self.current_case+10])])
+        return "\n".join(map(str, self.log))
 
     def get_current_case(self):
         """
@@ -80,7 +75,24 @@ class GameState(object):
             bool: True if the move can be execute, False if move is impossible
 
         """
+        self.log = []
+
         self.laste_dice = randint(1, 6)
         self.current_case += self.laste_dice
 
-        return self.current_case
+        self.plateau_de_jeu = self.map.get_creat_map()
+        nbr_case = self.map.number_of_case
+        for i in range(0, nbr_case - 1):
+            if i == self.current_case:
+                self.plateau_de_jeu[i] += self.hero.image
+        self.log.append(f"{self.player_name} le {self.hero.name} avance de {self.laste_dice} case(s)")
+        for ennemi in self.map.liste_ennemi:
+            if ennemi.case == self.current_case:
+                self.log.append(f"Vous rencontrez un {ennemi.name} qui as {ennemi.attack} point attaque et {ennemi.life} PV")
+        for coffre in self.map.liste_coffres:
+            if coffre.case == self.current_case:
+                self.log.append(f"Vous trouvez un {coffre.name} qui vous donne {coffre.attack} point attaque et {coffre.life} PV")
+        self.log.append(f"Vous avez {self.hero.life} PV et {self.hero.attack_level} point d'attaque")
+        self.log.append(" - ".join(self.plateau_de_jeu[self.current_case:self.current_case+10]))
+
+        return True
