@@ -1,7 +1,5 @@
 from random import *
 
-taille_plateau_MAX = 65
-
 
 class GameState(object):
 
@@ -36,7 +34,7 @@ class GameState(object):
         Returns:
             str: the game status
         """
-        if self.current_case <= 64:
+        if self.current_case <= self.get_map().number_of_case:
             self.gamestatus = "IN_PROGRESS"
         else:
             self.gamestatus = "FINISHED"
@@ -64,9 +62,10 @@ class GameState(object):
         """
         plateau = []
 
-        for i in range(1, taille_plateau_MAX):
+        for i in range(1, self.get_map().number_of_case):
             if i == self.current_case:
                 plateau.append("X")
+
             # elif i == 45 or i == 52 or i == 56 or i == 62:
             #     plateau.append("🦎")
             else:

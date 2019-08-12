@@ -20,7 +20,6 @@ class Map(object):
         Returns
             int: the number of case
         """
-        self.number_of_case = 64
         return self.number_of_case
 
 
