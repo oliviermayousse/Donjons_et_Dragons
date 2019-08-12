@@ -3,9 +3,10 @@ class Hero(object):
     """
     This interface contains all data needed by the client about the hero
     """
-    def __init__(self, name, current_life_points, attaque):
+    def __init__(self, name, image, current_life_points, attaque):
 
         self.name = name
+        self.image = image
         self.current_life_points = current_life_points
         self.attaque = attaque
 

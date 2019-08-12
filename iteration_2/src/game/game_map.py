@@ -1,11 +1,16 @@
+
+
 class Map(object):
     """
     This interface contains all data needed by the client about the game map
     """
 
-    def __init__(self, name, number_of_case):
+    def __init__(self, name, number_of_case, ennemies, objet):
+
         self.name = name
         self.number_of_case = number_of_case
+        self.ennemies = ennemies
+        self.objet = objet
 
     def get_name(self):
         """
@@ -22,37 +27,50 @@ class Map(object):
         """
         return self.number_of_case
 
+    def get_map_list(self):
 
-class Ennemeies(object):
-    def __init__(self, name, image, cases):
+        plateau = []
+
+        for i in range(1, self.number_of_case):
+
+            plateau.append("_")
+
+        for ennemie in self.ennemies:
+            plateau[ennemie.cases] = ennemie
+
+        for item in self.objet:
+            plateau[item.cases] = item
+        return plateau
+
+
+class Ennemie(object):
+    def __init__(self, name, image, cases, pdv, degats):
         self.name = name
         self.image = image
         self.cases = cases
+        self.pdv = pdv
+        self.degats = degats
 
-    def get_cases_ennemies(self):
+    def __repr__(self):
+        return self.image
+
+    def get_case_ennemie(self):
         return self.cases
 
 
-dragons = Ennemeies(name="Dragons", image="🦎", cases=[45, 52, 56, 62])
-tigre = Ennemeies(name="Tigre", image="🐅 ", cases=[10, 20, 25, 32, 35, 36, 37, 40, 44, 47])
-poulet = Ennemeies(name="Poulet", image="🐔", cases=[3, 6,  9 , 12, 15, 18, 21, 24, 27, 30])
-
-
 class Objet(object):
-    def __init__(self, name, image, cases):
+    def __init__(self, name, image, cases, pdv, degats):
         self.name = name
         self.image = image
         self.cases = cases
+        self.pdv = pdv
+        self.degats = degats
+
+    def __repr__(self):
+        return self.image
 
     def get_cases_objet(self):
         return self.cases
 
 
-arc = Objet(name="Arc", image="🏹", cases=[2, 11, 14, 19, 26])
-masse = Objet(name="Masse", image="🔨", cases=[5, 22, 38])
-epee = Objet(name="épée", image="⚔️", cases=[42, 53])
-sort_eclair = Objet(name="Sort éclair", image="⚡", cases=[1, 4, 8, 17, 23])
-sort_fireball = Objet(name="Sort Boule de feu", image="🔥", cases=[48, 49])
-petite_potion = Objet(name="Petite potion", image="🍷", cases=[7, 13, 28, 29, 33])
-potion_standards = Objet(name="Potion standards", image="⚗️", cases=[31, 39, 43])
-grande_potion = Objet(name="Grand potion", image="✨", cases=[41])
+

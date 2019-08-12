@@ -1,4 +1,5 @@
 from random import *
+from .game_map import *
 
 
 class GameState(object):
@@ -7,11 +8,13 @@ class GameState(object):
     This interface describes the game state which should be return after each game turn
     """
     def __init__(self, player_name, hero, map):
+        self.gamestatus = "IN_PROGRESS"
         self.player_name = player_name
         self.hero = hero
         self.map = map
         self.last_dice = None
         self.current_case = 0
+        self.log = []
 
     def get_player_name(self):
         """
@@ -34,10 +37,6 @@ class GameState(object):
         Returns:
             str: the game status
         """
-        if self.current_case <= self.get_map().number_of_case:
-            self.gamestatus = "IN_PROGRESS"
-        else:
-            self.gamestatus = "FINISHED"
 
         return self.gamestatus
 
@@ -60,18 +59,8 @@ class GameState(object):
         Returns:
             str: the last log of the game. This log is displayed by the client after each game turn
         """
-        plateau = []
 
-        for i in range(1, self.get_map().number_of_case):
-            if i == self.current_case:
-                plateau.append("X")
-
-            # elif i == 45 or i == 52 or i == 56 or i == 62:
-            #     plateau.append("🦎")
-            else:
-                plateau.append("_")
-
-        return self.last_dice, self.current_case, plateau
+        return"\n" .join(map(str, self.log))
 
     def get_current_case(self):
         """
@@ -89,7 +78,27 @@ class GameState(object):
             bool: True if the move can be execute, False if move is impossible
 
         """
+
+        self.log = []
         de = randint(1, 6)
-        self.last_dice = de
-        self.current_case += self.last_dice
+        self.log.append("Jet du dé lancé : %d" % de)
+
+        self.current_case += de
+        if self.current_case <= self.get_map().number_of_case:
+            self.gamestatus = "IN_PROGRESS"
+            self.log.append(self.gamestatus)
+            self.log.append("Case n° %d" % self.current_case)
+            tab_map_list = self.map.get_map_list()
+            tab_map_list_str = list(map(str, tab_map_list))
+            tab_map_list_str[self.current_case] += self.hero.image
+            self.log.append(tab_map_list_str)
+            for objet in self.map.objet:
+                if objet.cases == self.current_case:
+                    self.log.append("Vous obtenez un/une %s qui donne %s PDV et %s de dégats" % (objet.name, objet.pdv, objet.degats))
+            for ennemie in self.map.ennemies:
+                if ennemie.cases == self.current_case:
+                    self.log.append("Vous recontrez un %s avec %s PDV et %s de degats" % (ennemie.name, ennemie.pdv, ennemie.degats))
+        else:
+            self.gamestatus = "FINISHED"
+
         return True
