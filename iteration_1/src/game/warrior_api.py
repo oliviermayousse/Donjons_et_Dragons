@@ -1,3 +1,7 @@
+from .hero import Hero
+from .game_map import Map, Ennemies
+from .game_state import GameState
+
 class WarriorsAPI(object):
     """the Warriors Game API"""
 
@@ -9,7 +13,8 @@ class WarriorsAPI(object):
             list: the list of available heroes
 
         """
-        return
+        return [Hero("Guerrier", "💀", 5, 5), Hero("Magicien", "🧙", 3, 8)]
+
 
     def get_maps(self):
         """
@@ -18,7 +23,9 @@ class WarriorsAPI(object):
         Returns
             list: the list of available maps
         """
-        return
+        dragons = Ennemies("Dragons", "🐉", [45, 52, 56, 62])
+        return [Map("plateau en ligne", 64, dragons), Map("plateau de l'espace", 32, dragons)]
+
 
     def create_game(self, player_name, hero, map):
         """Called by the client to create a new game
@@ -31,4 +38,6 @@ class WarriorsAPI(object):
         Returns
             GameState: the initial game state
         """
-        return
+        initialisation_jeu = GameState(player_name, hero, map)
+
+        return initialisation_jeu
