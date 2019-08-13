@@ -1,6 +1,6 @@
 from random import randint
-from .game_map import *
-
+from .hero import Hero
+from .caissesurprise import CaisseSurprise
 class GameState(object):
     """
     This interface describes the game state which should be return after each game turn
@@ -69,39 +69,49 @@ class GameState(object):
         """
         return self.current_case
 
+    @property
     def next_turn(self):
         """
         Called by the client to execute a new turn in the game.
         """
+        #initialisation du tableau de Log
         self.log = []
-        self.log.append("Nom du Héro : %s %s" % (self.hero.nom, self.hero.image))
-        self.log.append("Point de vie : %s" %self.hero.life)
-        self.log.append("Point d'attaque : %s" %self.hero.attack_level)
+
+        #ajout dans le log du Nom Héro, point de vie, niveau d'attaque
+        self.log.append("Nom du Héro : %s %s" % (self.hero.name, self.hero.image))
+        self.log.append("Point de vie : %s" %self.hero.life_points)
+        self.log.append("Point d'attaque : %s" %self.hero._attack_level)
+
+        #lancer de Dé
         dice = randint(1, 6)
         self.last_dice = dice
+        #le personnage avance sur la case suivante en fct du lancé de Dé
         self.current_case += dice
+        #ajout dans le log du résultat du lancer de Dé
         self.log.append("résultat jet de dé : %s" %dice)
 
-        i = 0
-        while i < len(self.map.list_enemies):
-            if self.current_case == self.map.list_enemies[i].case_enemy:
-                self.log.append("vous rencontrez un ennemi : %s %s POINT D'ATTAQUE : %s POINT DE VIE : %s" %(self.map.list_enemies[i].name_enemy,
-                                                                                           self.map.list_enemies[i].image_enemy,
-                                                                                           self.map.list_enemies[i].attack_points,
-                                                                                           self.map.list_enemies[i].life_points))
-            i += 1
-
-        i = 0
-        while i < len(self.map.list_caisses_surprises):
-            if self.current_case == self.map.list_caisses_surprises[i].case_surprise:
-                self.log.append("vous rencontrez une caisse surprise : %s %s" % (self.map.list_caisses_surprises[i].nom_surprise, self.map.list_caisses_surprises[i].image_surprise))
-            i += 1
-
+        #appel de la fonction create_map pour récupérer le plateau de jeu avec les ennemis et les caisses déjà positionnés dessous
         plateau_de_jeu = self.map.create_map()
+
+        #création d'un plateau casté en string pour l'affichage
+        plateau_de_presentation = list(map(str, plateau_de_jeu))
         i = 0
         while i <= (self.map.number_of_case - 1):
             if i == self.current_case:
-                plateau_de_jeu[i] = self.hero.image
+                # àla case courrante on ajoute le Hero pour affichage
+                plateau_de_presentation[i] += (self.hero.image)
             i += 1
-        self.log.append("|".join(plateau_de_jeu))
+        # ajout dans le log du plateau de jeu avec le héro positionné sur la case courante
+        self.log.append("|".join(plateau_de_presentation))
+        print("voici ce que le héro a trouvé sur la case:")
+        #apel de la fonction qui permet de savoir ce qu'il y a dans la case
+        print(self.hero.verif_ce_qu_il_y_a_dans_current_case(plateau_de_jeu[self.current_case]))
+        #si le contenu est de Class CaisseSurpires, appel fonction qui vérifie si le héro peut récupérer les points de la caisse surprise
+        if isinstance(plateau_de_jeu[self.current_case], CaisseSurprise):
+           self.hero.ramassage_objet(plateau_de_jeu[self.current_case])
+
+
+
+
+
         return self.log

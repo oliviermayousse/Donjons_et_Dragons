@@ -41,7 +41,7 @@ class ConsoleUI(object):
             if action and action.upper() == "Q":
                 break
             else:
-                game_state.next_turn()
+                game_state.next_turn
 
     def display_menu(self):
         print("")

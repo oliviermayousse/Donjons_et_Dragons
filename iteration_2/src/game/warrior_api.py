@@ -1,6 +1,9 @@
 from .hero import Hero
-from .game_map import Map, Enemy, CaisseSurprise
+from .game_map import Map
+from .enemy import Enemy
+from .caissesurprise import CaisseSurprise
 from .game_state import GameState
+from random import randint
 
 class WarriorsAPI(object):
     """the Warriors Game API"""
@@ -13,28 +16,10 @@ class WarriorsAPI(object):
             list: the list of available heroes
 
         """
-        return [Hero("Guerrier", "💀", 5, 5), Hero("Magicien", "🧙", 3, 8)]
-
-    def get_list_enemies(self):
-        return [Enemy("Dragons", "🐉", 21, 4, 15),
-                Enemy("Dragons", "🐉", 2, 4, 15),
-                Enemy("Dragons", "🐉", 19, 4, 15),
-                Enemy("Dragons", "🐉", 5, 4, 15),
-                Enemy("Sorcier", "🥢", 17, 2, 9),
-                Enemy("Gobelin", "👹", 18, 1, 6),
-                Enemy("Dragons", "🐉", 6, 4, 15),
-                Enemy("Sorcier", "🥢", 25, 2, 9),
-                Enemy("Gobelin", "👹", 26, 1, 6)
-                ]
+        return [Hero("Guerrier","\033[31m💀\033[0m", life_points = 5, attack_level = 5, max_life_points = 10, max_attack_level = 10),
+                Hero("Magicien", "\033[31m🧙\033[0m", life_points = 3, attack_level = 8, max_life_points = 6, max_attack_level = 15)]
 
 
-    def get_list_caisses_surprises(self):
-        return [CaisseSurprise("Arc", "🏹", 3, 1, 0),
-                CaisseSurprise("Potion de vie mineure", "🧴🧴🧴🧴🧴🍾", 7, 0, 1),
-                CaisseSurprise("grande potion de vie", "🧴🧴🧴🧴🧴🍾", 11, 0, 5),
-                CaisseSurprise("Potion de vie standard", "🧴🧴🧴🧴🧴🍾", 15, 0, 2),
-                CaisseSurprise("Massue", "🔨", 8, 3, 0),
-                CaisseSurprise("Epée", "⚔️", 10, 5, 0)]
 
     def get_maps(self):
         """
@@ -44,8 +29,8 @@ class WarriorsAPI(object):
             list: the list of available maps
 
         """
-        list_enemies = self.get_list_enemies()
-        list_caisses_surprises = self.get_list_caisses_surprises()
+        list_enemies = Enemy.get_list_enemies()
+        list_caisses_surprises = CaisseSurprise.get_list_caisses_surprises()
         return [Map("plateau en ligne", 30,list_enemies, list_caisses_surprises),
                 Map("plateau de l'espace", 32, list_enemies, list_caisses_surprises)]
 

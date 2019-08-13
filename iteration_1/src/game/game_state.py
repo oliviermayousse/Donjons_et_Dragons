@@ -12,6 +12,7 @@ class GameState(object):
         self.map = map
         self.last_dice = None
         self.current_case = 0
+        self.log = []
 
     def get_player_name(self):
         """
@@ -36,7 +37,6 @@ class GameState(object):
             GAMESTATUS = "IN_PROGRESS"
         else:
             GAMESTATUS = "FINISHED"
-        # GAMESTATUS = "IN_PROGRESS"
         return GAMESTATUS
 
     def get_hero(self):
@@ -44,7 +44,6 @@ class GameState(object):
         Returns:
             Hero: the current hero
         """
-
 
         return self.hero
 
@@ -60,19 +59,8 @@ class GameState(object):
         Returns:
             str: the last log of the game. This log is displayed by the client after each game turn
         """
-        plateau_de_jeu = []
-        cases_dragons = self.map.get_cases_dragons()
-        i = 0
-        while i <= (self.map.number_of_case - 1):
-            if i == self.current_case:
-                plateau_de_jeu.append(self.hero.image)
-            elif i in cases_dragons:
-                plateau_de_jeu.append(self.ennemies.image)
-            else:
-                plateau_de_jeu.append(" ")
-            i += 1
-
-        return "\n".join([str(self.current_case), self.hero.get_name(), self.hero.image, "|".join(plateau_de_jeu)])
+        last_log = "\n".join(map(str, self.log))
+        return last_log
 
     def get_current_case(self):
         """
@@ -84,12 +72,36 @@ class GameState(object):
     def next_turn(self):
         """
         Called by the client to execute a new turn in the game.
-
-        Returns:
-            bool: True if the move can be execute, False if move is impossible
-
         """
+        self.log = []
+        self.log.append("Nom du Héro : %s %s" % (self.hero.nom, self.hero.image))
+        self.log.append("Point de vie : %s" %self.hero.life)
+        self.log.append("Point d'attaque : %s" %self.hero.attack_level)
         dice = randint(1, 6)
         self.last_dice = dice
         self.current_case += dice
-        return True
+        self.log.append("résultat jet de dé : %s" %dice)
+
+        i = 0
+        while i < len(self.map.list_enemies):
+            if self.current_case == self.map.list_enemies[i].case_enemy:
+                self.log.append("vous rencontrez un ennemi : %s %s POINT D'ATTAQUE : %s POINT DE VIE : %s" %(self.map.list_enemies[i].name_enemy,
+                                                                                           self.map.list_enemies[i].image_enemy,
+                                                                                           self.map.list_enemies[i].attack_points,
+                                                                                           self.map.list_enemies[i].life_points))
+            i += 1
+
+        i = 0
+        while i < len(self.map.list_caisses_surprises):
+            if self.current_case == self.map.list_caisses_surprises[i].case_surprise:
+                self.log.append("vous rencontrez une caisse surprise : %s %s" % (self.map.list_caisses_surprises[i].nom_surprise, self.map.list_caisses_surprises[i].image_surprise))
+            i += 1
+
+        plateau_de_jeu = self.map.create_map()
+        i = 0
+        while i <= (self.map.number_of_case - 1):
+            if i == self.current_case:
+                plateau_de_jeu[i] = self.hero.image
+            i += 1
+        self.log.append("|".join(plateau_de_jeu))
+        return self.log
