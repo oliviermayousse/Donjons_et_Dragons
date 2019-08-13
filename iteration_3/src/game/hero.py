@@ -1,17 +1,21 @@
 from .Objet import Objet
 
 from .game_state import *
+
+
 class Hero(object):
 
     """
     This interface contains all data needed by the client about the hero
     """
-    def __init__(self, name, image, current_life_points, attaque):
+    def __init__(self, name, image, current_life_points, max_life_points,attaque, max_attaque):
 
         self.name = name
         self.image = image
         self.current_life_points = current_life_points
+        self.max_life_points = max_life_points
         self.attaque = attaque
+        self.max_attaque = max_attaque
 
     def get_name(self):
         """
@@ -43,8 +47,8 @@ class Hero(object):
 
     @classmethod
     def get_heroes(cls):
-        guerrier = cls(name="Guerrier", image="🤺", current_life_points="5", attaque="5")
-        magicien = cls(name="Magicien", image="🧙 ", current_life_points="3", attaque="8")
+        guerrier = cls(name="Guerrier", image="🤺", current_life_points="5", max_life_points="10", attaque="5", max_attaque="10")
+        magicien = cls(name="Magicien", image="🧙 ", current_life_points="3", max_life_points="6", attaque="8", max_attaque="15")
         heroes_list = [guerrier, magicien]
         return heroes_list
 
