@@ -1,3 +1,5 @@
+from .Objet import *
+from .ennemie import *
 
 
 class Map(object):
@@ -42,35 +44,16 @@ class Map(object):
             plateau[item.cases] = item
         return plateau
 
-
-class Ennemie(object):
-    def __init__(self, name, image, cases, pdv, degats):
-        self.name = name
-        self.image = image
-        self.cases = cases
-        self.pdv = pdv
-        self.degats = degats
-
-    def __repr__(self):
-        return self.image
-
-    def get_case_ennemie(self):
-        return self.cases
+    @classmethod
+    def get_carte(cls):
+        foret = cls(name="Forêt", number_of_case=64, ennemies=Ennemie.get_list_ennemie(), objet=Objet.get_objet_list())
+        chateau = cls(name="Chateau", number_of_case=64, ennemies=Ennemie.get_list_ennemie(), objet=Objet.get_objet_list())
+        list_map = [foret, chateau]
+        return list_map
 
 
-class Objet(object):
-    def __init__(self, name, image, cases, pdv, degats):
-        self.name = name
-        self.image = image
-        self.cases = cases
-        self.pdv = pdv
-        self.degats = degats
 
-    def __repr__(self):
-        return self.image
 
-    def get_cases_objet(self):
-        return self.cases
 
 
 

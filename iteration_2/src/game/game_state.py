@@ -1,4 +1,6 @@
 from random import *
+from .Objet import *
+from .hero import *
 from .game_map import *
 
 
@@ -92,13 +94,16 @@ class GameState(object):
             tab_map_list_str = list(map(str, tab_map_list))
             tab_map_list_str[self.current_case] += self.hero.image
             self.log.append(tab_map_list_str)
-            for objet in self.map.objet:
-                if objet.cases == self.current_case:
-                    self.log.append("Vous obtenez un/une %s qui donne %s PDV et %s de dégats" % (objet.name, objet.pdv, objet.degats))
-            for ennemie in self.map.ennemies:
-                if ennemie.cases == self.current_case:
-                    self.log.append("Vous recontrez un %s avec %s PDV et %s de degats" % (ennemie.name, ennemie.pdv, ennemie.degats))
+            if isinstance(tab_map_list[self.current_case], Objet):
+                self.log.append("Vous trouvez un/une %s qui donne %s PDV et %s de dégats" % (tab_map_list[self.current_case].name, tab_map_list[self.current_case].pdv, tab_map_list[self.current_case].degats))
+                if self.hero.condition_equipement(tab_map_list[self.current_case]) is True:
+                    self.log.append("L'objet est équipable")
+                else:
+                    self.log.append("Impossible d'équiper l'objet")
+            if isinstance(tab_map_list[self.current_case], Ennemie):
+                self.log.append("Vous recontrez un %s avec %s PDV et %s de degats" % (tab_map_list[self.current_case].name, tab_map_list[self.current_case].pdv, tab_map_list[self.current_case].degats))
         else:
             self.gamestatus = "FINISHED"
+            return False
 
         return True

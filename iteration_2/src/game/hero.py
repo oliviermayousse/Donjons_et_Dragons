@@ -1,3 +1,6 @@
+from .Objet import Objet
+
+from .game_state import *
 class Hero(object):
 
     """
@@ -22,7 +25,7 @@ class Hero(object):
         Returns
             str: the image of the hero
         """
-        return
+        return self.image
 
     def get_life(self):
         """
@@ -37,5 +40,27 @@ class Hero(object):
             int: the attack level of the hero
         """
         return self.attaque
+
+    @classmethod
+    def get_heroes(cls):
+        guerrier = cls(name="Guerrier", image="🤺", current_life_points="5", attaque="5")
+        magicien = cls(name="Magicien", image="🧙 ", current_life_points="3", attaque="8")
+        heroes_list = [guerrier, magicien]
+        return heroes_list
+
+    def condition_equipement(self, objet):
+        if self.name == "Magicien":
+            if objet.name == "Sort éclair" or objet.name == "Sort Boule de feu" or objet.name == "Petite potion" or objet.name == "Potion standards" or objet.name == "Grand potion":
+                return True
+            else:
+                return False
+        else:
+            if objet.name == "Sort éclair" or objet.name == "Sort Boule de feu":
+                return False
+            elif objet.name == "Petite potion" or objet.name == "Potion standards" or objet.name == "Grand potion":
+                return True
+            else:
+                return True
+
 
 
