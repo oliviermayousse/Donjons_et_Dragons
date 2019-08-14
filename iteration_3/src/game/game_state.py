@@ -85,30 +85,46 @@ class GameState(object):
         self.current_case += self.laste_dice
         nbr_case = self.map.number_of_case
 
-        self.plateau_de_jeu = self.map.get_creat_map()
-        plateau_presentation = list(map(str, self.plateau_de_jeu))
-        plateau_presentation[self.current_case] += self.hero.image
-
-        self.log.append(f"{self.player_name} le {self.hero.name}.")
-        self.log.append(f"Tu avance de {self.laste_dice} case(s)")
+        if self.current_case < nbr_case:
 
 
-        if isinstance(self.plateau_de_jeu[self.current_case], Ennemi):
-            self.log.append(f"Vous rencontrez un {self.plateau_de_jeu[self.current_case].name}")
-            self.log.append(f"Point d'attaque :  {self.plateau_de_jeu[self.current_case].attack_level}")
-            self.log.append(f"PV : {self.plateau_de_jeu[self.current_case].life}")
+            self.plateau_de_jeu = self.map.get_creat_map()
+            plateau_presentation = list(map(str, self.plateau_de_jeu))
+            plateau_presentation[self.current_case] += self.hero.image
 
-            self.hero.combat(self.plateau_de_jeu[self.current_case])
+            self.log.append(f"{self.player_name} le {self.hero.name}.")
+            self.log.append(f"Tu avance de {self.laste_dice} case(s)")
+            self.log.append(f"Tu est a la case {self.current_case}")
+
+            if isinstance(self.plateau_de_jeu[self.current_case], Ennemi):
+                self.log.append(f"Vous rencontrez un {self.plateau_de_jeu[self.current_case].name}")
+                self.log.append(f"Point d'attaque :  {self.plateau_de_jeu[self.current_case].attack_level}")
+                self.log.append(f"PV : {self.plateau_de_jeu[self.current_case].life}")
+
+                self.hero.combat(self.plateau_de_jeu[self.current_case])
+                if self.plateau_de_jeu[self.current_case].life <= 0:
+                    self.log.append(f"tu as tué le {self.plateau_de_jeu[self.current_case].name}")
+                else:
+                    self.log.append(f"{self.plateau_de_jeu[self.current_case].name} s'enfuit")
+                if self.hero.life <= 0:
+                    self.game_status = "GAME_OVER"
+
+            if isinstance(self.plateau_de_jeu[self.current_case], Coffre):
+                self.log.append(f"Tu trouve un(e) {self.plateau_de_jeu[self.current_case].name}")
+                self.log.append(f"Bonus attaque :  {self.plateau_de_jeu[self.current_case].attack_level}")
+                self.log.append(f"Bonus PV : {self.plateau_de_jeu[self.current_case].life}")
+
+                self.hero.equipement(self.plateau_de_jeu[self.current_case])
+
+            self.log.append(f"Vous avez {self.hero.life} PV et {self.hero.attack_level} point d'attaque")
+            self.log.append(" - ".join(plateau_presentation[self.current_case:self.current_case+10]))
+
+            if self.game_status == "GAME_OVER" or self.game_status == "FINISHED":
+                self.log.append(f"{self.game_status}")
 
 
-        if isinstance(self.plateau_de_jeu[self.current_case], Coffre):
-            self.log.append(f"Tu trouve un(e) {self.plateau_de_jeu[self.current_case].name}")
-            self.log.append(f"Bonus attaque :  {self.plateau_de_jeu[self.current_case].attack_level}")
-            self.log.append(f"Bonus PV : {self.plateau_de_jeu[self.current_case].life}")
-
-            self.hero.equipement(self.plateau_de_jeu[self.current_case])
-
-        self.log.append(f"Vous avez {self.hero.life} PV et {self.hero.attack_level} point d'attaque")
-        self.log.append(" - ".join(plateau_presentation[self.current_case:self.current_case+10]))
+        else:
+            self.current_case = nbr_case
+            self.game_status = "FINISHED"
 
         return True
