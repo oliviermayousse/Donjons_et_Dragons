@@ -4,6 +4,7 @@ from .hero import *
 from .game_map import *
 
 
+
 class GameState(object):
 
     """
@@ -99,15 +100,18 @@ class GameState(object):
                 if self.hero.do_equip_or_not(tab_map_list[self.current_case-1]) is True:
                     self.log.append("L'objet est équipable")
                     self.hero.ajout_equipement(tab_map_list[self.current_case-1])
+                    self.log.append("%s le %s" % (self.player_name, self.hero.name))
                     self.log.append("Pdv actuel = %s" % self.hero.current_life_points)
                     self.log.append("Points d'attaque actuel = %s" % self.hero.attaque)
                 else:
                     self.log.append("Impossible d'équiper l'objet")
+                    self.log.append("%s le %s" % (self.player_name, self.hero.name))
                     self.log.append("Pdv actuel = %s" % self.hero.current_life_points)
                     self.log.append("Points d'attaque actuel = %s" % self.hero.attaque)
             if isinstance(tab_map_list[self.current_case-1], Ennemie):
                 self.log.append("Vous recontrez un %s avec %s PDV et %s de degats" % (tab_map_list[self.current_case-1].name, tab_map_list[self.current_case-1].pdv, tab_map_list[self.current_case-1].degats))
                 self.hero.combat(tab_map_list[self.current_case-1])
+                self.log.append("%s le %s" % (self.player_name, self.hero.name))
                 self.log.append("Pdv actuel = %s" % self.hero.current_life_points)
                 self.log.append("Points d'attaque actuel = %s" % self.hero.attaque)
                 if self.hero.current_life_points <= 0:
