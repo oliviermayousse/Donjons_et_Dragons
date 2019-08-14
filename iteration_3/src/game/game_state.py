@@ -1,5 +1,5 @@
 from random import *
-from .Objet import *
+from .objet import *
 from .hero import *
 from .game_map import *
 
@@ -92,16 +92,28 @@ class GameState(object):
             self.log.append("Case n° %d" % self.current_case)
             tab_map_list = self.map.get_map_list()
             tab_map_list_str = list(map(str, tab_map_list))
-            tab_map_list_str[self.current_case] += self.hero.image
+            tab_map_list_str[self.current_case-1] += self.hero.image
             self.log.append(tab_map_list_str)
-            if isinstance(tab_map_list[self.current_case], Objet):
-                self.log.append("Vous trouvez un/une %s qui donne %s PDV et %s de dégats" % (tab_map_list[self.current_case].name, tab_map_list[self.current_case].pdv, tab_map_list[self.current_case].degats))
-                if self.hero.condition_equipement(tab_map_list[self.current_case]) is True:
+            if isinstance(tab_map_list[self.current_case-1], Objet):
+                self.log.append("Vous trouvez un/une %s qui donne %s PDV et %s de dégats" % (tab_map_list[self.current_case-1].name, tab_map_list[self.current_case-1].pdv, tab_map_list[self.current_case-1].degats))
+                if self.hero.do_equip_or_not(tab_map_list[self.current_case-1]) is True:
                     self.log.append("L'objet est équipable")
+                    self.hero.ajout_equipement(tab_map_list[self.current_case-1])
+                    self.log.append("Pdv actuel = %s" % self.hero.current_life_points)
+                    self.log.append("Points d'attaque actuel = %s" % self.hero.attaque)
                 else:
                     self.log.append("Impossible d'équiper l'objet")
-            if isinstance(tab_map_list[self.current_case], Ennemie):
-                self.log.append("Vous recontrez un %s avec %s PDV et %s de degats" % (tab_map_list[self.current_case].name, tab_map_list[self.current_case].pdv, tab_map_list[self.current_case].degats))
+                    self.log.append("Pdv actuel = %s" % self.hero.current_life_points)
+                    self.log.append("Points d'attaque actuel = %s" % self.hero.attaque)
+            if isinstance(tab_map_list[self.current_case-1], Ennemie):
+                self.log.append("Vous recontrez un %s avec %s PDV et %s de degats" % (tab_map_list[self.current_case-1].name, tab_map_list[self.current_case-1].pdv, tab_map_list[self.current_case-1].degats))
+                self.hero.combat(tab_map_list[self.current_case-1])
+                self.log.append("Pdv actuel = %s" % self.hero.current_life_points)
+                self.log.append("Points d'attaque actuel = %s" % self.hero.attaque)
+                if self.hero.current_life_points <= 0:
+                    self.log.append("Pdv actuel = %s PERDU :(" % self.hero.current_life_points)
+                    self.gamestatus = "GAME_OVER"
+                    return False
         else:
             self.gamestatus = "FINISHED"
             return False

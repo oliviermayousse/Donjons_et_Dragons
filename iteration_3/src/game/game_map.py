@@ -1,4 +1,4 @@
-from .Objet import *
+from .objet import *
 from .ennemie import *
 
 

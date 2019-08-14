@@ -1,4 +1,4 @@
-from .Objet import Objet
+from .objet import Objet
 
 from .game_state import *
 
@@ -47,12 +47,12 @@ class Hero(object):
 
     @classmethod
     def get_heroes(cls):
-        guerrier = cls(name="Guerrier", image="🤺", current_life_points="5", max_life_points="10", attaque="5", max_attaque="10")
-        magicien = cls(name="Magicien", image="🧙 ", current_life_points="3", max_life_points="6", attaque="8", max_attaque="15")
+        guerrier = cls(name="Guerrier", image="🤺", current_life_points=5, max_life_points=10, attaque=5, max_attaque=10)
+        magicien = cls(name="Magicien", image="🧙 ", current_life_points=3, max_life_points=6, attaque=8, max_attaque=15)
         heroes_list = [guerrier, magicien]
         return heroes_list
 
-    def condition_equipement(self, objet):
+    def do_equip_or_not(self, objet):
         if self.name == "Magicien":
             if objet.name == "Sort éclair" or objet.name == "Sort Boule de feu" or objet.name == "Petite potion" or objet.name == "Potion standards" or objet.name == "Grand potion":
                 return True
@@ -66,5 +66,21 @@ class Hero(object):
             else:
                 return True
 
+    def ajout_equipement(self, objet):
+        if self.current_life_points < self.max_life_points:
+            self.current_life_points += objet.pdv
+            if self.current_life_points > self.max_life_points:
+                self.current_life_points = self.max_life_points
+        if self.attaque < self.max_attaque:
+            self.attaque += objet.degats
+            if self.attaque > self.max_attaque:
+                self.attaque = self.max_attaque
+
+    def combat(self, ennemie):
+        if self.current_life_points > 0:
+            if self.attaque > ennemie.pdv:
+                ennemie.image = "_"
+            elif self.attaque < ennemie.pdv:
+                self.current_life_points -= ennemie.degats
 
 
