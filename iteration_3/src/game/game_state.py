@@ -108,9 +108,10 @@ class GameState(object):
         self.log.append("voici ce que le héro a trouvé sur la case:")
 
         #apel de la fonction qui permet de savoir ce qu'il y a dans la case et ajout dans le log
-        if self.current_case <= self.map.number_of_case:
+        if self.current_case < self.map.number_of_case:
             self.log.append(self.hero.verif_ce_qu_il_y_a_dans_current_case(plateau_de_jeu[self.current_case]))
-            # si le contenu est de Class CaisseSurpires, appel fonction qui vérifie si le héro peut récupérer les points de la caisse surprise
+            # si le contenu est de Class CaisseSurpires
+            # appel fonction qui vérifie si le héro peut récupérer les points de la caisse surprise
             if isinstance(plateau_de_jeu[self.current_case], CaisseSurprise):
                 self.log.append(self.hero.ramassage_objet(plateau_de_jeu[self.current_case]))
             #si le contenu est de Class Enemy,
@@ -132,6 +133,11 @@ class GameState(object):
                     else:
                         self.log.append("l'enemy est mort")
                     self.log.append("nouveau point de vie du héro : %s" %self.hero.life_points)
+
+        # à l'inverse, si le héro sort du plateau
+        else:
+            print("\n".join(self.log))
+            print("le héro est arrivé au bout du plateau GAGNE!")
 
         #ajout dans le log d'une ligne de séparation pour y voir plus clair dans la console
         self.log.append("\033[33m===========================NEXT TURN========================================\033[0m")

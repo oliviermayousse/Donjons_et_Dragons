@@ -99,7 +99,7 @@ class GameState(object):
         i = 0
         while i <= (self.map.number_of_case - 1):
             if i == self.current_case:
-                # àla case courrante on ajoute le Hero pour affichage
+                # àla case courante on ajoute le Hero pour affichage
                 plateau_de_presentation[i] += (self.hero.image)
             i += 1
         # ajout dans le log du plateau de jeu avec le héro positionné sur la case courante
@@ -107,8 +107,9 @@ class GameState(object):
         #ajout des infos sur la case courrante
         self.log.append("voici ce que le héro a trouvé sur la case:")
 
-        #apel de la fonction qui permet de savoir ce qu'il y a dans la case et ajout dans le log
+        #si la case courrante ne sort pas du plateau
         if self.current_case <= self.map.number_of_case:
+            # appel de la fonction qui permet de savoir ce qu'il y a dans la case et ajout dans le log
             self.log.append(self.hero.verif_ce_qu_il_y_a_dans_current_case(plateau_de_jeu[self.current_case]))
             # si le contenu est de Class CaisseSurpires, appel fonction qui vérifie si le héro peut récupérer les points de la caisse surprise
             if isinstance(plateau_de_jeu[self.current_case], CaisseSurprise):
@@ -132,6 +133,8 @@ class GameState(object):
                     else:
                         self.log.append("l'enemy est mort")
                     self.log.append("nouveau point de vie du héro : %s" %self.hero.life_points)
+
+
 
         #ajout dans le log d'une ligne de séparation pour y voir plus clair dans la console
         self.log.append("\033[33m===========================NEXT TURN========================================\033[0m")
