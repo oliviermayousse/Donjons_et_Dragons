@@ -42,6 +42,12 @@ class ConsoleUI(object):
                 break
             else:
                 game_state.next_turn()
+        if game_state.get_game_status() == "GAME_OVER":
+            print(game_state.get_last_log())
+            print('Tu as perdu!!!!')
+        elif game_state.get_game_status() == "FINISHED":
+            print(game_state.get_last_log())
+            print("Tu as gagné")
 
     def display_menu(self):
         print("")
