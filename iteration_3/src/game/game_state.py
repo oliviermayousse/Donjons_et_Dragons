@@ -4,7 +4,6 @@ from .hero import *
 from .game_map import *
 
 
-
 class GameState(object):
 
     """
