@@ -90,14 +90,14 @@ class GameState(object):
             self.log.append("\033[31m================================Nouveau Tour==============================\033[0m")
             self.plateau_de_jeu = self.map.get_creat_map()
             plateau_presentation = list(map(str, self.plateau_de_jeu))
-            plateau_presentation[self.current_case] += self.hero.image
+            plateau_presentation[self.current_case-1] += self.hero.image
 
             self.log.append(f"{self.player_name} le {self.hero.name}.")
             self.log.append(f"PV : {self.hero.life} / Attaque : {self.hero.attack_level}")
             self.log.append(f"tu fait {self.laste_dice}")
             self.log.append(f"Tu est a la case {self.current_case}")
 
-            self.log.append(" | ".join(plateau_presentation[self.current_case:]))
+            self.log.append(" | ".join(plateau_presentation[self.current_case-1:]))
 
             if isinstance(self.plateau_de_jeu[self.current_case-1], Ennemi):
                 self.log.append(f"Vous rencontrez un {self.plateau_de_jeu[self.current_case-1].name}")
@@ -116,8 +116,9 @@ class GameState(object):
                 self.log.append(f"Tu trouve un(e) {self.plateau_de_jeu[self.current_case-1].name}")
                 self.log.append(f"Bonus attaque :  {self.plateau_de_jeu[self.current_case-1].attack_level}")
                 self.log.append(f"Bonus PV : {self.plateau_de_jeu[self.current_case-1].life}")
+                self.log.append(self.hero.equipement(self.plateau_de_jeu[self.current_case-1]))
 
-                self.hero.equipement(self.plateau_de_jeu[self.current_case-1])
+                # self.hero.equipement(self.plateau_de_jeu[self.current_case-1])
 
             self.log.append(f"Vous avez {self.hero.life} PV et {self.hero.attack_level} point d'attaque")
 
