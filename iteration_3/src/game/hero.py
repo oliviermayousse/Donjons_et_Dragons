@@ -11,8 +11,6 @@ class Hero(Personnage):
         self._life_points = life_points
         Personnage.__init__(self, name, image, attack_level, life_points)
 
-    def get_name(self):
-        return self.name
 
     @property
     def attack_level(self):

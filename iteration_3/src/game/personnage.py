@@ -1,6 +1,6 @@
 
 
-class Personnage(object):
+class Personnage:
     """
     This interface contains all data needed by the client about the hero
     """

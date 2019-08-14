@@ -7,8 +7,6 @@ class Enemy(Personnage):
         self._life_points = life_points
         Personnage.__init__(self, name, image, attack_level, life_points)
 
-    def get_name(self):
-        return self.name
 
     @classmethod
     def get_list_enemies(cls):
