@@ -1,18 +1,15 @@
 from .caissesurprise import CaisseSurprise
 from .enemy import Enemy
+from .personnage import Personnage
 
-class Hero(object):
-    """
-    This interface contains all data needed by the client about the hero
-    """
+class Hero(Personnage):
 
     def __init__(self, name, image, life_points, attack_level, max_life_points, max_attack_level):
-        self.name = name
-        self.image = image
-        self._life_points = life_points
-        self._attack_level = attack_level
         self.max_life_points = max_life_points
         self.max_attack_level = max_attack_level
+        self._attack_level = attack_level
+        self._life_points = life_points
+        Personnage.__init__(self, name, image, attack_level, life_points)
 
     def get_name(self):
         return self.name
@@ -36,6 +33,8 @@ class Hero(object):
     def life_points(self, life_points):
         if life_points >= self.max_life_points:
             self._life_points = self.max_life_points
+        elif life_points < 0:
+            self._life_points = 0
         else:
             self._life_points = life_points
 
@@ -50,30 +49,29 @@ class Hero(object):
         if caisse_surprise.nom_surprise == "Potion de vie mineure" or caisse_surprise.nom_surprise == "grande potion de vie" or caisse_surprise.nom_surprise == "Potion de vie standard":
             point_de_vie_bonus = caisse_surprise.ajout_pt_vie
             self.life_points += point_de_vie_bonus
-            return("nouveau point de vie du héro :%s" %self.life_points)
+            return"nouveau point de vie du héro :%s" %self.life_points
         elif self.name == "Guerrier":
             if caisse_surprise.nom_surprise == "Arc" or caisse_surprise.nom_surprise == "Massue" or caisse_surprise.nom_surprise =="Epée":
                 point_attack_bonus = caisse_surprise.ajout_pt_attack
                 self.attack_level += point_attack_bonus
-                return("nouveau Attack Level du héro :%s" % self.attack_level)
+                return"nouveau Attack Level du héro :%s" % self.attack_level
             else:
-                return("notre héro ne peut pas ramaser cet objet...dommage...")
+                return"notre héro ne peut pas ramaser cet objet...dommage..."
         elif self.name == "Magicien":
             if caisse_surprise.nom_surprise == "Eclair" or caisse_surprise.nom_surprise == "Boule de feu":
                 point_attack_bonus = caisse_surprise.ajout_pt_attack
-                self.attack_level = point_attack_bonus
-                return("nouveau Attack Level du héro :%s" % self.attack_level)
+                self.attack_level += point_attack_bonus
+                return"nouveau Attack Level du héro :%s" % self.attack_level
             else:
-                return("notre héro ne peut pas ramaser cet objet...dommage...")
-
+                return"notre héro ne peut pas ramaser cet objet...dommage..."
 
     def combat(self, enemy):
         #le héro commence par attaquer
         enemy.life_points -= self._attack_level
         #si l'enemy n'est pas mort, il réplique
         if enemy.life_points > 0:
-            self._life_points -= enemy.attack_points
-        return self._life_points
+            self.life_points -= enemy.attack_level
+        return self.life_points
 
 
 

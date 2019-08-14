@@ -107,8 +107,9 @@ class GameState(object):
         #ajout des infos sur la case courrante
         self.log.append("voici ce que le héro a trouvé sur la case:")
 
-        #apel de la fonction qui permet de savoir ce qu'il y a dans la case et ajout dans le log
+        #si le héro n'est toujours pas sorti du plateau de jeu
         if self.current_case < self.map.number_of_case:
+            # appel de la fonction qui permet de savoir ce qu'il y a dans la case et ajout dans le log
             self.log.append(self.hero.verif_ce_qu_il_y_a_dans_current_case(plateau_de_jeu[self.current_case]))
             # si le contenu est de Class CaisseSurpires
             # appel fonction qui vérifie si le héro peut récupérer les points de la caisse surprise
@@ -118,22 +119,21 @@ class GameState(object):
             if isinstance(plateau_de_jeu[self.current_case], Enemy):
                 #affichage des caractéristiques de l'enemy rencontré
                 self.log.append("il a %s point de vie" %plateau_de_jeu[self.current_case].life_points)
-                self.log.append("son niveau d'attaque est de %s point" %plateau_de_jeu[self.current_case].attack_points)
+                self.log.append("son niveau d'attaque est de %s point" %plateau_de_jeu[self.current_case].attack_level)
                 #appel de la fonction Combat
                 nouveau_point_vie_hero = self.hero.combat(plateau_de_jeu[self.current_case])
                 #vérifier si le héro est mort ou non
-                if nouveau_point_vie_hero <= 0:
+                if nouveau_point_vie_hero == 0:
                     print("\n".join(self.log))
                     print("le héro est mort!!! GAME OVER")
                     self.current_case = self.map.number_of_case + 1
                 else:
                     self.log.append("le héro est ressorti vainqueur du combat")
                     if plateau_de_jeu[self.current_case].life_points > 0:
-                        self.log.append("point de vie de l'enemy : %s" %plateau_de_jeu[self.current_case].life_points)
+                        self.log.append("point de vie de l'enemy après combat : %s" %plateau_de_jeu[self.current_case].life_points)
                     else:
                         self.log.append("l'enemy est mort")
                     self.log.append("nouveau point de vie du héro : %s" %self.hero.life_points)
-
         # à l'inverse, si le héro sort du plateau
         else:
             print("\n".join(self.log))
