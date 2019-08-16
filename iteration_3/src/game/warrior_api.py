@@ -3,7 +3,7 @@ from .game_map import Map
 from .enemy import Enemy
 from .caissesurprise import CaisseSurprise
 from .game_state import GameState
-from random import randint
+
 
 class WarriorsAPI(object):
     """the Warriors Game API"""
@@ -16,10 +16,10 @@ class WarriorsAPI(object):
             list: the list of available heroes
 
         """
-        return [Hero("Guerrier","\033[31m💀\033[0m", life_points = 5, attack_level = 5, max_life_points = 10, max_attack_level = 10),
-                Hero("Magicien", "\033[31m🧙\033[0m", life_points = 3, attack_level = 8, max_life_points = 6, max_attack_level = 15)]
-
-
+        return [Hero("Guerrier", "\033[31m💀\033[0m",
+                     life_points=5, attack_level=5, max_life_points=10, max_attack_level=10),
+                Hero("Magicien", "\033[31m🧙\033[0m", life_points=3,
+                     attack_level=8, max_life_points=6, max_attack_level=15)]
 
     def get_maps(self):
         """
@@ -33,7 +33,6 @@ class WarriorsAPI(object):
         list_caisses_surprises = CaisseSurprise.get_list_caisses_surprises()
         return [Map("plateau en ligne", 30, list_enemies, list_caisses_surprises),
                 Map("plateau de l'espace", 32, list_enemies, list_caisses_surprises)]
-
 
     def create_game(self, player_name, hero, map):
         """Called by the client to create a new game

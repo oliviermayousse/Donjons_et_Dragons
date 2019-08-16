@@ -14,7 +14,7 @@ class CaisseSurprise(object):
 
     @classmethod
     def get_list_caisses_surprises(cls):
-        return [cls("Arc", "\033[32m🏹\033[0m", 3, ajout_pt_attack=1, ajout_pt_vie=0),
+        return [cls("Arc", "\033[32m🏹\033[0m", 1, ajout_pt_attack=1, ajout_pt_vie=0),
                 cls("Potion de vie mineure", "\033[32m🍾\033[0m", 7, ajout_pt_attack=0, ajout_pt_vie=1),
                 cls("Boule de feu", "\033[32m🔥\033[0m", 8, ajout_pt_attack=7, ajout_pt_vie=0),
                 cls("Boule de feu", "\033[32m🔥\033[0m", 6, ajout_pt_attack=7, ajout_pt_vie=0),
@@ -26,4 +26,4 @@ class CaisseSurprise(object):
                 cls("Epée", "\033[32m⚔\033[0m", 10, ajout_pt_attack=5, ajout_pt_vie=0)]
 
     def __repr__(self):
-        return self.image_surprise
+         return self.image_surprise

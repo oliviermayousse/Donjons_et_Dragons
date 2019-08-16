@@ -10,13 +10,13 @@ class Enemy(Personnage):
 
     @classmethod
     def get_list_enemies(cls):
-        return [cls("Dragons", "\033[34m🐉\033[0m", case_enemy=1, attack_level=4, life_points=15),
-                cls("Dragons", "\033[34m🐉\033[0m", case_enemy=2, attack_level=4, life_points=15),
+        return [cls("Dragons", "\033[34m🐉\033[0m", case_enemy=2, attack_level=4, life_points=15),
+                cls("Dragons", "\033[34m🐉\033[0m", case_enemy=3, attack_level=4, life_points=15),
                 cls("Dragons", "\033[34m🐉\033[0m", case_enemy=19, attack_level=4, life_points=15),
                 cls("Dragons", "\033[34m🐉\033[0m", case_enemy=5, attack_level=4, life_points=15),
-                cls("Sorcier", "\033[34m🥢\033[0m", case_enemy=17, attack_level=2,life_points= 9),
+                cls("Sorcier", "\033[34m🥢\033[0m", case_enemy=17, attack_level=2, life_points=9),
                 cls("Gobelin", "\033[34m👹\033[0m", case_enemy=18, attack_level=1, life_points=6),
-                cls("Sorcier", "\033[34m🥢\033[0m", case_enemy=25,attack_level= 2, life_points=9),
+                cls("Sorcier", "\033[34m🥢\033[0m", case_enemy=25, attack_level=2, life_points=9),
                 cls("Gobelin", "\033[34m👹\033[0m", case_enemy=26, attack_level=1, life_points=6)]
 
     @property

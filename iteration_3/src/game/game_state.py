@@ -70,6 +70,11 @@ class GameState(object):
         """
         return self.current_case
 
+    def lancer_le_de(self):
+        dice = randint(1, 6)
+        return dice
+
+
     @property
     def next_turn(self):
         """
@@ -83,8 +88,7 @@ class GameState(object):
         self.log.append("Point de vie : %s" %self.hero.life_points)
         self.log.append("Point d'attaque : %s" %self.hero._attack_level)
 
-        #lancer de Dé
-        dice = randint(1, 6)
+        dice = self.lancer_le_de()
         self.last_dice = dice
         #le personnage avance sur la case suivante en fct du lancé de Dé
         self.current_case += dice
