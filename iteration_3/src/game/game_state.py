@@ -72,6 +72,10 @@ class GameState(object):
 
         return self.current_case
 
+    def lancer_de_de(self):
+        de = randint(1, 6)
+        return de
+
     def next_turn(self):
         """
         Called by the client to execute a new turn in the game.
@@ -82,9 +86,8 @@ class GameState(object):
         """
 
         self.log = []
-        de = randint(1, 6)
+        de = self.lancer_de_de()
         self.log.append("Jet du dé lancé : %d" % de)
-
         self.current_case += de
         if self.current_case <= self.get_map().number_of_case:
             self.gamestatus = "IN_PROGRESS"

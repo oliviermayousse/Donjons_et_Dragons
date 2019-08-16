@@ -7,8 +7,11 @@ class Map(object):
     This interface contains all data needed by the client about the game map
     """
 
-    def __init__(self, name, number_of_case, ennemies, objet):
-
+    def __init__(self, name, number_of_case, ennemies=None, objet=None):
+        if ennemies is None:
+            ennemies = []
+        if objet is None:
+            objet = []
         self.name = name
         self.number_of_case = number_of_case
         self.ennemies = ennemies
