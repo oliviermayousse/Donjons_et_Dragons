@@ -17,6 +17,7 @@ class GameState(object):
         self.plateau_de_jeu = []
         self.log = []
 
+
     def get_player_name(self):
         """
         Returns:
@@ -69,6 +70,10 @@ class GameState(object):
 
         return self.current_case
 
+    def lance_de(self):
+        return randint(1, 6)
+
+
     def next_turn(self):
         """
         Called by the client to execute a new turn in the game.
@@ -78,10 +83,8 @@ class GameState(object):
 
         """
         self.log = []
-
-
-
-        self.laste_dice = randint(1, 6)
+        dice = self.lance_de()
+        self.laste_dice = dice
         self.current_case += self.laste_dice
         nbr_case = self.map.number_of_case
 
@@ -95,7 +98,6 @@ class GameState(object):
             self.log.append(f"{self.player_name} le {self.hero.name}.")
             self.log.append(f"PV : {self.hero.life} / Attaque : {self.hero.attack_level}")
             self.log.append(f"tu fait {self.laste_dice}")
-            self.log.append(f"Tu est a la case {self.current_case}")
 
             self.log.append(" | ".join(plateau_presentation[self.current_case-1:]))
 
@@ -116,7 +118,7 @@ class GameState(object):
                 self.log.append(f"Tu trouve un(e) {self.plateau_de_jeu[self.current_case-1].name}")
                 self.log.append(f"Bonus attaque :  {self.plateau_de_jeu[self.current_case-1].attack_level}")
                 self.log.append(f"Bonus PV : {self.plateau_de_jeu[self.current_case-1].life}")
-                self.log.append(self.hero.equipement(self.plateau_de_jeu[self.current_case-1]))
+                self.hero.equipement(self.plateau_de_jeu[self.current_case-1])
 
                 # self.hero.equipement(self.plateau_de_jeu[self.current_case-1])
 

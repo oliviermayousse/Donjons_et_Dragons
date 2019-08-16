@@ -8,6 +8,7 @@ class Hero(BaseName, BaseCompetence):
     def __init__(self, name, image, life, max_life_point, attack_level, max_attack_level):
         self._life = life
         self.max_life_point = max_life_point
+        self.min_life_point = 0
         self._attack_level = attack_level
         self.max_attack_level = max_attack_level
         BaseName.__init__(self, name)
@@ -38,7 +39,9 @@ class Hero(BaseName, BaseCompetence):
     @life.setter
     def life(self, life):
         if life >= self.max_life_point:
-            self._life = self.max_life_point
+            self._life = min(life, self.max_life_point)
+        elif life < self.min_life_point:
+            self._life = max(life, self.min_life_point)
         else:
             self._life = life
 
@@ -48,13 +51,9 @@ class Hero(BaseName, BaseCompetence):
         elif self.name == "Warrior":
             if coffre.name == "Arc" or coffre.name == "Massue" or coffre.name == "Epée":
                 self.attack_level += coffre.attack_level
-            else:
-                return "Vous ne pouvez pas utiliser ce sort"
         elif self.name == "Wizard":
             if coffre.name == "Eclair" or coffre.name == "Boules de feu":
                 self.attack_level += coffre.attack_level
-            else:
-                return "Vous ne pouvez pas utiliser cette arme"
 
     def combat(self, ennemi):
 

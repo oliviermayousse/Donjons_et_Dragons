@@ -1,4 +1,4 @@
-from src.client.console import ConsoleUI
+from iteration_3.src.client.console import ConsoleUI
 
 
 ConsoleUI()
