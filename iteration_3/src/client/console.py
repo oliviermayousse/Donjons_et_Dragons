@@ -7,6 +7,7 @@ except ImportError:
 class ConsoleUI(object):
     def __init__(self):
         warriors = WarriorsAPI()
+        self.debug = False
         while True:
             choice = self.display_menu()
             if choice == "1":
@@ -16,6 +17,12 @@ class ConsoleUI(object):
                 print("Good bye :) ")
                 print("")
                 break
+            elif choice == "3":
+                self.debug = True
+                print("")
+                print("IN DEBUG MODE")
+                self.start_game(warriors)
+                print("")
 
     def start_game(self, warriors):
         # PLAYER NAME
@@ -33,7 +40,7 @@ class ConsoleUI(object):
         map_choice = int(input("Choose a map \n%s \n" % map_choices))
         game_map = available_maps[map_choice - 1]
 
-        game_state = warriors.create_game(player_name, hero, game_map)
+        game_state = warriors.create_game(player_name, hero, game_map, self.debug)
 
         while game_state.get_game_status() == "IN_PROGRESS":
             print(game_state.get_last_log())
@@ -52,6 +59,6 @@ class ConsoleUI(object):
     def display_menu(self):
         print("")
         print("================== Python Warriors ==================")
-        return input("(1) Start new game  |  (2) Exit game ")
+        return input("(1) Start new game  |  (2) Exit game | (3) Debug")
 
 
