@@ -3,6 +3,7 @@ from .game_map import Map
 from .game_state import GameState
 from .ennemi import Ennemi
 from .coffre import Coffre
+# from ..client.console import ConsoleUI
 
 
 class WarriorsAPI(object):
