@@ -1,0 +1,364 @@
+{
+  "enemies": [
+    {
+      "name": "Dragon",
+      "image": "D",
+      "case": 45,
+      "life": 15,
+      "attack_level": 4
+    },
+    {
+      "name": "Dragon",
+      "image": "D",
+      "case": 52,
+      "life": 15,
+      "attack_level": 4
+    },
+    {
+      "name": "Dragon",
+      "image": "D",
+      "case": 56,
+      "life": 15,
+      "attack_level": 4
+    },
+    {
+      "name": "Dragon",
+      "image": "D",
+      "case": 62,
+      "life": 15,
+      "attack_level": 4
+    },
+    {
+      "name": "Sorciers",
+      "image": "🌒",
+      "case": 10,
+      "life": 9,
+      "attack_level": 2
+    },
+    {
+      "name": "Sorciers",
+      "image": "🌒",
+      "case": 10,
+      "life": 9,
+      "attack_level": 2
+    },
+    {
+      "name": "Sorciers",
+      "image": "🌒",
+      "case": 20,
+      "life": 9,
+      "attack_level": 2
+    },
+    {
+      "name": "Sorciers",
+      "image": "🌒",
+      "case": 25,
+      "life": 9,
+      "attack_level": 2
+    },
+    {
+      "name": "Sorciers",
+      "image": "🌒",
+      "case": 32,
+      "life": 9,
+      "attack_level": 2
+    },
+    {
+      "name": "Sorciers",
+      "image": "🌒",
+      "case": 35,
+      "life": 9,
+      "attack_level": 2
+    },
+    {
+      "name": "Sorciers",
+      "image": "🌒",
+      "case": 36,
+      "life": 9,
+      "attack_level": 2
+    },
+    {
+      "name": "Sorciers",
+      "image": "🌒",
+      "case": 37,
+      "life": 9,
+      "attack_level": 2
+    },
+    {
+      "name": "Sorciers",
+      "image": "🌒",
+      "case": 40,
+      "life": 9,
+      "attack_level": 2
+    },
+    {
+      "name": "Sorciers",
+      "image": "🌒",
+      "case": 44,
+      "life": 9,
+      "attack_level": 2
+    },
+    {
+      "name": "Sorciers",
+      "image": "🌒",
+      "case": 47,
+      "life": 9,
+      "attack_level": 2
+    },
+    {
+      "name": "Gobelins",
+      "image": "G",
+      "case": 3,
+      "life": 6,
+      "attack_level": 1
+    },
+    {
+      "name": "Gobelins",
+      "image": "G",
+      "case": 6,
+      "life": 6,
+      "attack_level": 1
+    },
+    {
+      "name": "Gobelins",
+      "image": "G",
+      "case": 9,
+      "life": 6,
+      "attack_level": 1
+    },
+    {
+      "name": "Gobelins",
+      "image": "G",
+      "case": 12,
+      "life": 6,
+      "attack_level": 1
+    },
+    {
+      "name": "Gobelins",
+      "image": "G",
+      "case": 15,
+      "life": 6,
+      "attack_level": 1
+    },
+    {
+      "name": "Gobelins",
+      "image": "G",
+      "case": 18,
+      "life": 6,
+      "attack_level": 1
+    },
+    {
+      "name": "Gobelins",
+      "image": "G",
+      "case": 21,
+      "life": 6,
+      "attack_level": 1
+    },
+    {
+      "name": "Gobelins",
+      "image": "G",
+      "case": 24,
+      "life": 6,
+      "attack_level": 1
+    },
+    {
+      "name": "Gobelins",
+      "image": "G",
+      "case": 27,
+      "life": 6,
+      "attack_level": 1
+    },
+    {
+      "name": "Gobelins",
+      "image": "G",
+      "case": 30,
+      "life": 6,
+      "attack_level": 1
+    }
+  ],
+  "coffres": [
+    {
+      "name": "Arc",
+      "image": "A",
+      "case": 2,
+      "life": 0,
+      "attack_level": 1
+    },
+    {
+      "name": "Arc",
+      "image": "A",
+      "case": 11,
+      "life": 0,
+      "attack_level": 1
+    },
+    {
+      "name": "Arc",
+      "image": "A",
+      "case": 14,
+      "life": 0,
+      "attack_level": 1
+    },
+    {
+      "name": "Arc",
+      "image": "A",
+      "case": 19,
+      "life": 0,
+      "attack_level": 1
+    },
+    {
+      "name": "Arc",
+      "image": "A",
+      "case": 26,
+      "life": 0,
+      "attack_level": 1
+    },
+    {
+      "name": "Massue",
+      "image": "M",
+      "case": 5,
+      "life": 0,
+      "attack_level": 3
+    },
+    {
+      "name": "Massue",
+      "image": "M",
+      "case": 22,
+      "life": 0,
+      "attack_level": 3
+    },
+    {
+      "name": "Massue",
+      "image": "M",
+      "case": 38,
+      "life": 0,
+      "attack_level": 3
+    },
+    {
+      "name": "Epée",
+      "image": "E",
+      "case": 42,
+      "life": 0,
+      "attack_level": 5
+    },
+    {
+      "name": "Epée",
+      "image": "E",
+      "case": 53,
+      "life": 0,
+      "attack_level": 5
+    },
+    {
+      "name": "Eclair",
+      "image": "M",
+      "case": 1,
+      "life": 0,
+      "attack_level": 2
+    },
+    {
+      "name": "Eclair",
+      "image": "Th",
+      "case": 4,
+      "life": 0,
+      "attack_level": 2
+    },
+    {
+      "name": "Eclair",
+      "image": "Th",
+      "case": 8,
+      "life": 0,
+      "attack_level": 2
+    },
+    {
+      "name": "Eclair",
+      "image": "M",
+      "case": 17,
+      "life": 0,
+      "attack_level": 2
+    },
+    {
+      "name": "Eclair",
+      "image": "Th",
+      "case": 23,
+      "life": 0,
+      "attack_level": 2
+    },
+    {
+      "name": "Boule de feu",
+      "image": "F",
+      "case": 48,
+      "life": 0,
+      "attack_level": 7
+    },
+    {
+      "name": "Boule de feu",
+      "image": "F",
+      "case": 49,
+      "life": 0,
+      "attack_level": 7
+    },
+    {
+      "name": "Potion de vie mineure",
+      "image": "H1",
+      "case": 7,
+      "life": 1,
+      "attack_level": 0
+    },
+    {
+      "name": "Potion de vie mineure",
+      "image": "H1",
+      "case": 13,
+      "life": 1,
+      "attack_level": 0
+    },
+    {
+      "name": "Potion de vie mineure",
+      "image": "H1",
+      "case": 28,
+      "life": 1,
+      "attack_level": 0
+    },
+    {
+      "name": "Potion de vie mineure",
+      "image": "H1",
+      "case": 29,
+      "life": 1,
+      "attack_level": 0
+    },
+    {
+      "name": "Potion de vie mineure",
+      "image": "H1",
+      "case": 33,
+      "life": 1,
+      "attack_level": 0
+    },
+    {
+      "name": "Potion de vie standard",
+      "image": "H2",
+      "case": 31,
+      "life": 2,
+      "attack_level": 0
+    },
+    {
+      "name": "Potion de vie standard",
+      "image": "H2",
+      "case": 39,
+      "life": 2,
+      "attack_level": 0
+    },
+    {
+      "name": "Potion de vie standard",
+      "image": "H2",
+      "case": 43,
+      "life": 2,
+      "attack_level": 0
+    },
+    {
+      "name": "Grande potion de vie",
+      "image": "H5",
+      "case": 41,
+      "life": 5,
+      "attack_level": 0
+    }
+  ]
+}
+
