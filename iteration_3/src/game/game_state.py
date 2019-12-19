@@ -2,12 +2,14 @@ from random import randint
 from .game_status import GAME_STATUS
 from .ennemi import Ennemi
 from .coffre import Coffre
+import json
+
 
 class GameState(object):
     """
     This interface describes the game state which should be return after each game turn
     """
-    def __init__(self, player_name, hero, map):
+    def __init__(self, player_name, hero, map, debug):
         self.player_name = player_name
         self.hero = hero
         self.map = map
@@ -16,7 +18,14 @@ class GameState(object):
         self.game_status = GAME_STATUS[0]
         self.plateau_de_jeu = []
         self.log = []
+        self.debugmode = debug
+        self.dicepredef = self.debug(debug)
 
+    @classmethod
+    def debug(cls, debug):
+        if debug:
+            with open('src/res/predefini.json') as json_file:
+                return json.load(json_file)
 
     def get_player_name(self):
         """
@@ -83,7 +92,11 @@ class GameState(object):
 
         """
         self.log = []
-        dice = self.lance_de()
+        if self.debugmode:
+            dice = self.dicepredef[0]
+            self.dicepredef.pop(0)
+        else:
+            dice = self.lance_de()
         self.laste_dice = dice
         self.current_case += self.laste_dice
         nbr_case = self.map.number_of_case
@@ -91,13 +104,16 @@ class GameState(object):
         if self.current_case < nbr_case:
 
             self.log.append("\033[31m================================Nouveau Tour==============================\033[0m")
+            if self.debugmode:
+                self.log.append(
+                    "\033[31m================================DEBUG MODE==============================\033[0m")
             self.plateau_de_jeu = self.map.get_creat_map()
             plateau_presentation = list(map(str, self.plateau_de_jeu))
             plateau_presentation[self.current_case-1] += self.hero.image
 
             self.log.append(f"{self.player_name} le {self.hero.name}.")
             self.log.append(f"PV : {self.hero.life} / Attaque : {self.hero.attack_level}")
-            self.log.append(f"tu fait {self.laste_dice}")
+            self.log.append(f"tu fait \033[31m{self.laste_dice}\033[0m")
 
             self.log.append(" | ".join(plateau_presentation[self.current_case-1:]))
 

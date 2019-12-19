@@ -1,11 +1,12 @@
 from random import randint
 from .game_status import GAME_STATUS
+import csv
 
 class GameState(object):
     """
     This interface describes the game state which should be return after each game turn
     """
-    def __init__(self, player_name, hero, map):
+    def __init__(self, player_name, hero, map, debug):
         self.player_name = player_name
         self.hero = hero
         self.map = map
@@ -14,6 +15,17 @@ class GameState(object):
         self.game_status = GAME_STATUS[0]
         self.plateau_de_jeu = []
         self.log = []
+        self.debug = debug
+        if debug == True:
+            with open('../res/dicescenar.txt') as csv_file:
+                csv_reader = csv.reader(csv_file, delimiter=',')
+                self.dicescenar = []
+                for row in csv_reader:
+                    for dice in row:
+                        self.dicescenar.append(dice)
+
+
+            self.debug_dice = "XXX"
 
     def get_player_name(self):
         """
@@ -76,7 +88,9 @@ class GameState(object):
 
         """
         self.log = []
-
+        if self.debug:
+            self.laste_dice = self.dicescenar[0]
+            self.dicescenar.pop(0)
         self.laste_dice = randint(1, 6)
         self.current_case += self.laste_dice
 

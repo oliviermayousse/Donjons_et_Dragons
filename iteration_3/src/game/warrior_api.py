@@ -3,6 +3,7 @@ from .game_map import Map
 from .game_state import GameState
 from .ennemi import Ennemi
 from .coffre import Coffre
+# from ..client.console import ConsoleUI
 
 
 class WarriorsAPI(object):
@@ -31,7 +32,7 @@ class WarriorsAPI(object):
 
         return list_maps
 
-    def create_game(self, player_name, hero, map):
+    def create_game(self, player_name, hero, map, debug):
         """Called by the client to create a new game
 
         Args:
@@ -42,4 +43,4 @@ class WarriorsAPI(object):
         Returns
             GameState: the initial game state
         """
-        return GameState(player_name, hero, map)
+        return GameState(player_name, hero, map, debug)
